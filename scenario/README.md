@@ -102,12 +102,18 @@
       <br/>
       <br/>
       <br/>
-      <br/>
     
 
 - ## 외부 서비스 관리
-1. 날씨 정보 서비스 IoE 서비스 객체 확인
-2. 미세먼지 정보 서비스 IoE 서비스 객체 확인
+1. ### 날씨 정보 서비스 IoE 서비스 객체 확인
+    - 날씨 정보를 IoE 서비스 생성화면에서 Device 객체로 사용할 수 있음<br/><br/>
+      *<IoE 서비스 룰에서 날씨 정보를 Device로 활용하는 예>*
+      ![IoE service rules to weather](https://user-images.githubusercontent.com/58102072/69795401-7c73e180-120f-11ea-9450-6fbd5d7a3a0a.PNG)
+      
+2. ### 미세먼지 정보 서비스 IoE 서비스 객체 확인
+    - 미세먼지 정보를 IoE 서비스 생성화면에서 Device 객체로 사용할 수 있음<br/><br/>
+      *<IoE 서비스 룰에서 미세먼지 정보를 Device로 활용하는 예>*
+      ![IoE service rules to dust information](https://user-images.githubusercontent.com/58102072/69795590-d5437a00-120f-11ea-8074-5079362a1909.PNG)
 
 - ## IoE 서비스 관리 및 처리
 1. IoE 서비스 1: 차량 센서 기반 특정 등 켜기
