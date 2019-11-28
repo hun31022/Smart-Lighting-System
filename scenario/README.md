@@ -36,7 +36,7 @@
         
         - 테스트베드 환경에 따라 모든 등 등록
         
-          *<등록된 방 정보 화면>*
+          *<등록된 방 정보 화면>*<br/>
           ![Registered Room Information](https://user-images.githubusercontent.com/58102072/69793067-1edd9600-120b-11ea-8252-9a654888d744.PNG)
           
           *<각 방의 등 정보 화면>*
@@ -79,8 +79,28 @@
         ![Unregistered 3rd](https://user-images.githubusercontent.com/58102072/69794103-079fa800-120d-11ea-83d0-bdaf8f8c286f.PNG)
         <br/>
         (“Unregistered Thing”을 선택하면 사물 등록 화면이 나오면 사물의 종류(자동차)와 이름(차량센서) 선택)
+        <br/>
+        <br/>
         
+        *<차량 센서 등록 화면>*<br/>
+        ![car sensor register](https://user-images.githubusercontent.com/58102072/69794391-84cb1d00-120d-11ea-9cef-e1bb5d2635d3.PNG)
+        
+        <br/>
+        <br/>
+        
+      - 차량 센서가 등록되면 대쉬보드에서 차량 센서 연결 정보(연결됨) 및 차량 유무 정보(차량 있음) 확인 가능<br/><br/>
+        *<차량 센서 정보 확인 화면>*<br/>
+        ![car sensor information](https://user-images.githubusercontent.com/58102072/69794581-de334c00-120d-11ea-8bb1-28069e293935.PNG)
+        
+        
+
 2. ### 차량 센서 IoE 서비스 객체 확인
+    - 차량 센서를 IoE 서비스를 생성하는 화면에서 Device 객체로 사용할 수 있음<br/><br/>
+      *<IoE 서비스 룰에서 차량 센서를 Device로 활용하는 예>*
+      ![IoE service rules to car sensor](https://user-images.githubusercontent.com/58102072/69794985-9fea5c80-120e-11ea-8897-9181f8686c45.PNG)
+      
+      
+    
 
 - ## 외부 서비스 관리
 1. 날씨 정보 서비스 IoE 서비스 객체 확인
