@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<%
+rule_data.rule_details = JSON.parse(rule_data.rule_details);
+%>
+<script>
+    var ifAry;
+    var thenAry;
+
+    ifAry=<%-JSON.stringify(rule_data.rule_details.if)%>;
+    thenAry=<%-JSON.stringify(rule_data.rule_details.then)%>;
+    var ruleid=<%=rule_data.rule_id%>;
+</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+function MessgeFunc(){
+    swal({
+      title: "Are you sure?",
+      text: "action: 모든 등을 소등합니다.",
+      icon: "info",
+      buttons: true,
+      })
+        .then((willSelect) => {
+          if (willSelect) {
+            document.getElementById('all_off_btn').value = 1;
+        } else {
+        }
+    });
+}
+
+function systemNotify(){
+    document.getElementById('notify').value = 1;
+}
+</script>
+<%include header.ejs%>
+
+    <div class="content-wrapper">
+        <div class="container">
+        	<div class="row pad-botm">
+            		<div class="col-md-12">
+                		<h4 class="header-line">Rule Dashboard</h4>
+            		</div>
+        	</div>
+            <div class="row">
+                <div style="text-align : right">
+                    <button type="button" class="btn btn-default btn-circle" onclick="saveRuleDetail();">등록</button>
+                    <button type="button" class="btn btn-default btn-circle" onclick="location.reload();">취소</button>
+                </div>
+                <div style="text-align : left">
+                    <h4>Rule Name : <label id='ruleName'><%=rule_data.rule_name%></label></h4>
+                    <h4>Description : <span><%=rule_data.rule_description%></span></h4> 
+                    <%if(device_id){%><input type="hidden" id="rule_deviceID" value="<%=device_id%>"><%}%>
+                    <br>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            IF
+                        </div>
+                        <div class="panel-body" id="ifBoard">
+                            <%for(var i=0;i<rule_data.rule_details.if.length;i++){%>
+                                <%if(Object.keys(rule_data.rule_details.if[i]).length>3){%>
+                                    <span class="form-control condition">
+                                        <%="room"+rule_data.rule_details.if[i].room+"'s device "+rule_data.rule_details.if[i].device+"'s property"+rule_data.rule_details.if[i].property+" "+rule_data.rule_details.if[i].operator+rule_data.rule_details.if[i].value;%>
+                                        <button type="button" class="btn btn-default btn-circle btn-xs"><i class="fa fa-minus"></i></button>
+                                    </span>
+                                <%}else{
+                                    var str="Repeat("+rule_data.rule_details.if[i].repeat+")  "+rule_data.rule_details.if[i].type+"  "+rule_data.rule_details.if[i].detail+"";
+                                    if(rule_data.rule_details.if[i].type!=1)str=str+" min";%>
+                                    <span class="form-control condition">
+                                        <%="Repeat("+rule_data.rule_details.if[i].repeat+")  "+rule_data.rule_details.if[i].type+"  "+rule_data.rule_details.if[i].detail+""%>
+                                    <button type="button" class="btn btn-default btn-circle btn-xs"><i class="fa fa-minus"></i></button>
+                                    </span>
+                                <%}%>
+                            <%}%>
+                        </div>
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-default btn-circle btn-sm" data-toggle="modal" data-target="#myCondition">
+                                <i class="fa fa-plus"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myCondition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Add Condition</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div role="tabpanel">
+                                                <ul class="nav nav-tabs" role="tablist">
+                                                    <li role="presentation" class="active"><a href="#constraintTab" aria-controls="constraintTab" role="tab" data-toggle="tab">Constraint</a></li>
+                                                    <li role="presentation"><a href="#clockTab" aria-controls="clockTab" role="tab" data-toggle="tab">Clock</a></li>
+                                                </ul>
+                                                
+                                                <div class="tab-content">
+                                                    <div role="tabpanel" class="tab-pane active" id="constraintTab" >
+                                                        <table style="width : 100%">
+                                                            <form id="ifModal">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="width : 30%"><label>Room</label></td>
+                                                                        <td style='width : 50%'>
+                                                                            <select class="form-control" name="room" onchange="loadDevice('if',function(){});" id="ifroom" value="" style="width : 100%" >
+                                                                                <%for(var i=0;i<room_data.length;i++){%>
+                                                                                <option value='<%= room_data[i].room_id %>'><%= room_data[i].room_name %></option>
+                                                                                <%}%>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width : 30%"><label>Device</label></td>
+                                                                        <td>
+                                                                            <select class="form-control" name="device" onchange="loadProperty('if');" id="ifdevice" value="">
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><label>Property</label></td>
+                                                                        <td>
+                                                                            <select class="form-control" name="property" id="ifproperty" value="" >
+                                                                                
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><label>Operator</label></td>
+                                                                        <td>
+                                                                            <div class="btn-group" data-toggle="buttons" id="if_operator">
+                                                                                <label class="btn btn-default"><input type="radio" name="operator" value='>' autocomplete="off">></input></label>
+                                                                                <label class="btn btn-default "><input type="radio" name="operator" value='<' autocomplete="off"><</input></label>
+                                                                                <label class="btn btn-default "><input type="radio" name="operator" value='>=' autocomplete="off">>=</input></label>
+                                                                                <label class="btn btn-default "><input type="radio" name="operator" value='<=' autocomplete="off"><=</input></label>
+                                                                                <label class="btn btn-default "><input type="radio" name="operator" value='==' autocomplete="off">==</input></label>
+                                                                                <label class="btn btn-default "><input type="radio" name="operator" value='!=' autocomplete="off">!=</input></label>
+                                                                                <label class="btn btn-default "><input type="radio" name="operator" value='===' autocomplete="off">===</input></label>
+                                                                                <label class="btn btn-default "><input type="radio" name="operator" value='!==' autocomplete="off">!==</input></label>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><label>Value</label></td>
+                                                                        <td>
+                                                                            <div id="selectValue" hidden>
+                                                                                <select class="form-control" name="value" onchange="" id="if_value" value="">
+                                                                                
+                                                                                </select>
+                                                                            </div>
+                                                                            <div id="inputValue">
+                                                                                <input type="text" class="form-control" name="value" placeholder="Enter text" >
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </form>
+                                                        </table>
+                                                    </div>
+                                                    <div role="tabpanel" class="tab-pane" id="clockTab">
+                                                        <table style="width : 80%">
+                                                            <form id="clockModal">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td style="width : 40%"><label>Type</label></td>
+                                                                        <td>
+                                                                            <select class="form-control" name="type" id="type" onchange="typeChange(this.value);"; value="" >
+                                                                                <option>Delay</option>
+                                                                                <option>onTime</option>
+                                                                                <option>Duration</option>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width : 40%"><label id='detailType'></label></td>
+                                                                        <td id='innerdType'>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width : 40%"><label>Repeat</label></td>
+                                                                        <td>
+                                                                            <select class="form-control" name="repeat" id="repeat" value="" >
+                                                                                <option>None</option>
+                                                                                <option>Daily</option>
+                                                                                <option>Weekdays</option>
+                                                                                <option>Weekends</option>
+                                                                                <option>Weekly</option>
+                                                                            </select>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </form>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveCondition();">Save changes</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                        THEN
+                        </div>
+                        <div class="panel-body" id="thenBoard">
+                            <%for(var i=0;i<rule_data.rule_details.then.length;i++){%>
+                                <span class="form-control condition"><%=rule_data.rule_details.then[i].description%>
+                                    <button type="button" class="btn btn-default btn-circle btn-xs"><i class="fa fa-minus"></i></button>
+                                </span>
+                            <%}%>
+                        </div>
+                        <div class="panel-footer">
+                            <button type="button" class="btn btn-default btn-circle btn-sm" data-toggle="modal" data-target="#myAction">
+                                <i class="fa fa-plus"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myAction" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Add Action</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id='thenModal'>
+                                            <!-- <table style="width : 80%">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width : 35%"><label>Description</label></td>
+                                                        <td>
+                                                            <input class="form-control" name='description' placeholder="Enter text">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><lable>Room</lable></td>
+                                                        <td>
+                                                            <select class="form-control" name='room' onchange="loadDevice('then');" id="thenroom" value="">
+                                                                <%for(var i=0;i<room_data.length;i++){%>
+                                                                <option value='<%= room_data[i].room_id %>'><%= room_data[i].room_name %></option>
+                                                                <%}%>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><lable>Device</lable></td>
+                                                        <td>
+                                                            <select class="form-control" name='device' onchange="loadProperty('then');" id="thendevice" value="">
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table> -->
+                                            <div class="row">
+                                                <div class="col-md-3 col-ms-12"><label>Description</label></div>
+                                                <div class="col-md-6 col-ms-12"><input class="form-control" style="width : 100%"name='description' placeholder="Enter text"></div>
+                                                <div class="col-md-3 col-ms-12"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 col-ms-12"><label>Room</label></div>
+                                                <div class="col-md-6 col-ms-12"><select class="form-control" name='room' onchange="loadDevice('then',function(){});" id="thenroom" value="">
+                                                                <%for(var i=0;i<room_data.length;i++){%>
+                                                                <option value='<%= room_data[i].room_id %>'><%= room_data[i].room_name %></option>
+                                                                <%}%>
+                                                            </select></div>
+                                                <div class="col-md-3 col-ms-12"><button style="margin: 5px; border-color: #0033CC;" name="all_off" type="button" class="btn btn-default" id='all_off_btn' 
+                                                    value=0 onclick="MessgeFunc()">Total lights out</button></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3 col-ms-12"><label>Description</label></div>
+                                                <div class="col-md-6 col-ms-12"><select class="form-control" name='device' onchange="loadProperty('then');" id="thendevice" value="0">
+                                                            </select></div>
+                                                <div class="col-md-3 col-ms-12"><button style="margin: 5px; border-color: #0033CC;" name="systemNoti" type="button" class="btn btn-default" id='notify' value="0" onclick="systemNotify();">System notify</button></div>
+
+                                            </div>
+                                            <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane active" id="lightControlTab">
+                                                    <div class="row">
+                                                        <div class="col-md-9 col-sm-9">
+                                                            bright <input type='range' name='bright' value =0 id="bright-temperature" max = "500" min = "0" step = "1" />
+                                                            temperature <input type='range' name='temperature' value =0 id="temperature" max = "100" min = "0" step = "1"/>
+                                                            color <div class="rgbpanel panel-footer">
+                                                                <div class = "Input_Form" id = "wrap_color" >
+                                                                    <input type='text' name='color0' id="flat" value="blank"/>
+                                                                </div>
+                                                                <div class="btn-group" data-toggle="buttons" id="thenrgbBtns">
+                                                                    <label class="btn btn-danger btn-lg"><input type="radio" name="operator" value='255,0,0' autocomplete="off"></input></label>
+                                                                    <label class="btn btn-default btn-lg"><input type="radio"  name="operator" value='255,255,255' autocomplete="off"></input></label>
+                                                                    <label class="btn btn-success btn-lg"><input type="radio" name="operator" value='0,255,0' autocomplete="off"></input></label>
+                                                                    <label class="btn btn-primary btn-lg"><input type="radio" " name="operator" value='0,0,255' autocomplete="off"></input></label>
+                                                                    <label class="btn btn-warning btn-lg"><input type="radio"  name="operator" value='255,255,0' autocomplete="off"></input></label>
+                                                                </div>
+                                                                <!-- <div class = "Input_Form" id = "wrap_color_temparature" hidden>
+                                                                    <div class = "color_temperature_text"></div>
+                                                                    <input type='range' name='color1' value = 0 id="color_temparature" max = "15000" min = "0" step = "1000"/>
+                                                                </div> -->
+                                                                <!-- <button class = "btn btn-default btn-sm"  data-dismiss="modal">등록</button> -->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3" col>
+                                                            Selected <span id="selected"></span><br>
+                                                            <input style="margin: 5px;" type="checkbox" checked data-toggle="toggle" data-onstyle="info">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div role="tabpanel" class="tab-pane active" id="thingControlTab">
+                                                    <div class="row">
+                                                        <div class="col-md-9 col-sm-9">
+                                                            <div id='editProperty'>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-3" col>
+                                                            Selected <span id="selected">fan</span>
+                                                            <input style="margin: 5px;" type="checkbox" checked data-toggle="toggle" data-onstyle="info">
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                            </div> 
+                                            </form>                                              
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveAction();">Save changes</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+		
+
+
+    	</div>
+    </div>
+     <!-- CONTENT-WRAPPER SECTION END-->
+    <section class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                   &copy; 2014 Yourdomain.com |<a href="http://www.binarytheme.com/" target="_blank"  > Designed by : binarytheme.com</a> 
+                </div>
+
+            </div>
+        </div>
+    </section>
+      <!-- FOOTER SECTION END-->
+    <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script>
+    thisLoad();
+    function thisLoad(){
+        if($('#rule_deviceID').val()!=undefined){
+            var realData;
+            $.ajax({
+                type: "get",
+                url : BASE_URL+API_URL+"loadRuleByDevice/?deviceid="+$('#rule_deviceID').val(),
+                async: false,
+                timeout : 2000,
+                success: function(data){
+                    $('#ifroom').val(data.room_id).prop('selected',true);
+                    console.log('확인');
+                    loadDevice('if',function(id){
+                        console.log("2");
+                        $('#ifdevice').val('t'+data.t_id);
+                    });
+
+                    //console.log('t'+data.t_id);
+                    
+                    
+                },
+                err: function(err){
+                    console.log(err);
+                }
+            });
+            
+        }
+    }
+
+    function typeChange(val){
+        $('#innerdType').empty();
+        if(val=='Delay'){
+            document.getElementById('detailType').innerHTML='Delay';
+            $('#innerdType').append('<input type="text" class="form-control" id="Delay" placeholder="Enter Minutes (ex : 5)">');
+        }
+        else if(val=='onTime'){
+            document.getElementById('detailType').innerHTML='onTime';
+            $('#innerdType').append('<input type="date" class="form-control" id="onTime"><input type="time" class="form-control" id="onTime2">');
+        }
+        else if(val=='Duration'){
+            document.getElementById('detailType').innerHTML='Duration';
+            $('#innerdType').append('<input type="text" class="form-control" id="Duration" placeholder="Enter Minutes (ex : 5)">');
+        }
+    }
+    </script>
+    <script src="Assets/js/bootstrap.js"></script>
+    <!-- DATATABLE SCRIPTS  -->
+    <script src="Assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="Assets/js/dataTables/dataTables.bootstrap.js"></script>
+      <!-- CUSTOM SCRIPTS  -->
+    <script src="Assets/js/custom.js"></script>
+    <script>document.getElementsByClassName("form-control").selectedIndex = -1;</script>
+
+</body>
+</html>

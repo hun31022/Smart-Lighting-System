@@ -1,0 +1,72 @@
+const Light_ID = 2;
+const Main_Controller_IP = "202.31.200.180";
+const Main_Controller_Port = "3000"
+
+// Johnny-five
+var pixel = require("node-pixel");
+var five = require("johnny-five");
+/*
+// Linux
+var board = new five.Board({
+    port: "/dev/ttyACM0"
+});
+*/
+
+var board = new five.Board({
+    port: "COM29"
+});
+
+// Configuration
+var strip = null;
+var Address = Main_Controller_IP+":"+Main_Controller_Port;
+ 
+function randomIntInc (low, high) {
+    return Math.floor(Math.random() * (high - low + 1) + low);
+}
+ 
+board.on("ready", function () {
+ /*
+	// Initialize the RGB LED
+	led = new five.Led.RGB({
+		pins: { // pin numbers
+			red: 5,
+			green: 3,
+			blue: 6
+		}
+	});
+
+	led.on();
+*/
+    
+    strip = new pixel.Strip({
+        board: this,
+        controller: "FIRMATA",
+        strips: [ {pin: 6, length: 8}, ], // this is preferred form for definition
+        gamma: 2.8, // set to a gamma that works nicely for WS2812
+    });
+    
+    strip.on("ready", function() {
+        
+        //client.js
+        var io = require('socket.io-client');
+        var socket = io.connect(Address, {reconnect: true});
+
+        // Add a connect listener
+        socket.on('test',function(data){
+            if( Light_ID == data.cid )
+            {
+                console.log(data);
+
+                strip.color([red, green, blue]);
+                strip.show();
+            }
+            
+        });
+        
+        
+    });
+    
+	
+    
+})
+

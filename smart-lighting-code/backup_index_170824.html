@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+
+<link rel="stylesheet" href="./Assets/css/animation.css">
+<link rel="stylesheet" href="./Assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="./Assets/css/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="./Assets/css/spectrum.css" />
+<link rel="stylesheet" href="./Assets/css/style.css">
+<link rel="stylesheet" href="./Assets/css/global.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+
+<script src="./Assets/js/converter.js"></script>
+<script src="./Assets/js/jquery-2.2.3.min.js"></script>
+<script src="./Assets/js/jquery.blockUI.js"></script>
+<script src="./Assets/js/jquery-ui.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script type="text/javascript" src="./Assets/js/tinycolor.js"></script>
+<script type="text/javascript" src="./Assets/js/spectrum.js"></script>
+
+<script src="./Assets/js/scripts.js"></script>
+
+<title>	Smart Lighting System Version 0.3 </title>
+
+</head>
+<body>
+
+<div id="curtain">
+
+
+
+</div>
+
+<div class = "container">
+    <div id = "add_case_form" hidden>
+        <div class = "Input_Form">
+            <input type="text" id="case_name" name="case_name" placeholder="시나리오 이름을 입력 해주세요." />
+        </div>
+        <div class = "Menu">
+            <button class = "cbtn1"  onclick="SubmitCaseInformation();return false;">등록</button>
+            <button class = "cbtn1"  onclick="Sumbit1()">등록</button>
+            <button class = "cbtn1" onclick="CloseDialog();return false;">취소</button>
+        </div>
+    </div>
+
+    <div id = "add_room_form" hidden>
+        <div class = "Input_Form">
+            <input type="text" id="room_name" name="room_name" placeholder="방 이름을 입력해 주세요" />
+
+            <input type="text" id="room_exp" name="room_exp" placeholder="방에 대한 간략한 설명을 입력해 주세요" />
+
+        </div>
+        <div class = "Menu">
+            <button class = "cbtn1"  onclick="SubmitRoomInformation();return false;">등록</button>
+            <button class = "cbtn1" onclick="CloseDialog();return false;">취소</button>
+        </div>
+    </div>
+
+    <div id = "edit_light_form" hidden>
+        <div class = "Top Menu">
+            <button class = "cbtn2"  onclick="ChangeMode();return false;">모드 변경</button>
+        </div>
+        <div class = "Input_Form" id = "wrap_color">
+            <input type='text' id="flat" />
+        </div>
+        <div class = "Input_Form" id = "wrap_color_temparature" hidden>
+            <div class = "color_temperature_text"></div>
+            <input type='range' value = "0" id="color_temparature" max = "15000" min = "0" step = "1000" oninput="ChangeColorTemperature(this.value)"/>
+        </div>
+        <div class = "Menu">
+            <button class = "cbtn1"  onclick="CloseDialog();return false;">등록</button>
+            <button class = "cbtn1" onclick="CloseDialog();return false;">취소</button>
+        </div>
+    </div>
+
+    <div class = "top_menu">
+        <span class = "title">Smart Lighting System</span>
+        <div class="right_menu">
+            <!-- Logoff Menu
+            <span class = "name"><b>김재준</b>님</span>
+            <button type="button">로그아웃</button>
+            -->
+            <a id = "login_button" class="inverted catchy">로그인</a>
+            <a class="inverted catchy" href="/regist.html">회원가입</a>
+        </div>
+    </div>
+
+    <div class = "top_second_menu">
+        <button type="button">시나리오</button>
+    </div>
+
+	<div id = "room_list" class ="room_list">
+
+	</div>
+
+	<div class = "case_container">
+        <select name="case" id="case">
+        </select>
+        <button id = "modify_button" class="ui-button ui-widget ui-corner-all" onclick="SumbitModify()">수정</button>
+        <button class="ui-button ui-widget ui-corner-all" onclick = "ViewAddCase()">등록</button>
+	</div>
+</div>
+<div class ="copylight">
+    <span></span>
+</div>
+</body>
+
+</html>

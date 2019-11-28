@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<%include header.ejs%>
+
+    <div class="content-wrapper">
+    <!--     <div class = "top_second_menu">
+            <div class = "base-margin flex-center">
+                <select name="case" id="case">
+                </select>
+
+                <button id = "modify_button" class="scenario_button" >수정</button>
+                <button id = "registration_button" class="scenario_button">등록</button>
+            </div>
+        </div> -->
+
+        <!-- thing 등록 -->
+
+        <div class="container">
+            <div class="row pad-botm">
+                <div class="col-md-12">
+                    <h4 class="header-line">Registered Rooms</h4>
+                </div>
+            </div>
+            <div id="room_list" class="room_list">
+                
+            </div>
+        </div>
+    </div>
+
+    <div id = "add_thing_form" hidden>
+        <div class = "panel-danger">
+            <div class="panel-heading">
+                Register Thing
+            </div>
+            <div class="panel-body" id="thing_add">
+                <label>Type</label><br>
+                <div class="thing_type_view" id="thing_addd">
+
+                    </div>
+                <form role="form">
+                    <div class="form-group">
+                       <!-- <label>ID</label>
+                        <input class="form-control" id="thing_id" name="thing_id" type="text" placeholder="등록 할 thing의 ID를 입력하세요." /><br>-->
+                        <br><label>Mac Address</label>
+                        <input class="form-control" id="thing_mac" name="thing_mac" type="text" placeholder="thing의 맥 주소를 입력하세요." /><br>
+                        <label>Name</label>
+                        <input class="form-control" id="thing_name" name="thing_name" type="text" placeholder="thing의 이름을 입력하세요." /><br>                                 
+                        <!--<input class="thingimg" type="image" src="Assets/img/Thermostat.png">
+                        <input class="thingimg" type="image" src="Assets/img/fan.png">
+                        <input class="thingimg" type="image" src="Assets/img/tv.png"> -->
+                                                                                 
+                        <input type="hidden" id="add_thing_roomid">
+                        
+                        <input type="hidden" id="add_thing_type">
+                        <input type="hidden" id="add_Ex_thing_type">
+                    </div>
+
+                        <!--<label class="checkbox-wrap"><input type="checkbox" name="aaa" value="aaa"><i class="check-icon"></i></label>-->
+                
+                    <br><button type="submit" class="btn btn-danger" onclick="SubmitRegisterThing();return false;">Register Now </button>
+                    <button type="submit" class="btn btn-default" onclick="CloseDialog();return false;">Cancel </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+    
+  <!--   <div id = "add_Ex_thing_form" hidden>
+        <div class = "panel-info">
+            <div class="panel-heading">
+                Register External_Thing
+            </div>
+            <div class="panel-body" id="Ex_thing_add">
+             
+                <form role="form">
+                    <div class="form-group">
+                    
+                        <br><label>Mac Address</label>
+                        <input class="form-control" id="Ex_thing_mac" name="Ex_thing_mac" type="text" placeholder="thing의 맥 주소를 입력하세요." /><br>
+                        <label>Name</label>
+                        <input class="form-control" id="Ex_t hing_name" name="Ex_thing_name" type="text" placeholder="thing의 이름을 입력하세요." /><br>                                 
+                    
+                                                                                 
+                        <input type="hidden" id="add_Ex_thing_roomid">
+                    </div>
+
+                      
+                
+                    <br><button type="submit" class="btn btn-info" onclick="SubmitRegisterExThing();return false;">Register Now </button>
+                    <button type="submit" class="btn btn-default" onclick="CloseDialog();return false;">Cancel </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+ -->
+    <div class="modal fade" id="external_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="myModalLabel">External_thing</h4>
+                </div>
+                <div class="modal-body">
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#weatherTab" aria-controls="lightControlTab" role="tab" data-toggle="tab">Weather</a></li>
+                            <li role="presentation"><a href="#carTab" aria-controls="thingControlTab" role="tab" data-toggle="tab">Car</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="weatherTab">
+                                <div class="row">
+                                    <div class="col-md-6" id="weatherToday">
+                                        
+                                    </div>
+                                    <div class="col-md-6" id="weatherTomorrow">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane " id="carTab">
+                                <div class="row" id="Car_Ex">
+                                    <div class="col-md-12" id="CarHeader">
+                                        <label style=" white-space:nowrap; font-size:2.0em"> Registered Car </label>
+                                    </div>
+                                
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="room_info_form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                     <h4 class="modal-title" id="myRoomLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <div role="tabpanel">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#lightControlTab" aria-controls="lightControlTab" role="tab" data-toggle="tab">Light Control</a></li>
+                            <li role="presentation"><a href="#thingControlTab" aria-controls="thingControlTab" role="tab" data-toggle="tab">Thing Control</a></li>
+                            <li role="presentation"><a href="#roomInfoTab" aria-controls="roomInfoTab" role="tab" data-toggle="tab">Room Info</a></li>
+                            <!-- <li role="presentation"><a href="#rulesTab" aria-controls="rulesTab" role="tab" data-toggle="tab">Rules</a></li> -->
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="lightControlTab">
+                                <div class="row">
+                                    <div class="col-md-9 col-sm-9">
+                                        <div class="row panel panel-default lightView">
+                                            
+                                        </div>
+                                        bright <input type='range' value = 0 id="bright-temperature" max = "100" min = "0" step = "1"/>
+                                        temperature <input type='range' value = 0 id="temperature" max = "100" min = "0" step = "1" "/>
+                                        color <div class="rgbpanel panel-footer">
+                                            <div class="row">
+                                                <div class = "col-md-5 col-sm-4">
+                                                    <div class = "Input_Form" id = "wrap_color" >
+                                                        <input type='text' id="flat" value="blank"/>
+                                                        <br/>
+                                                        <div class="btn-group" data-toggle="buttons" id="rgbBtns">
+                                                            <label class="btn btn-danger btn-lg"><input type="radio" name="operator" value='255,0,0' autocomplete="off"></input></label>
+                                                            <label class="btn btn-default btn-lg"><input type="radio"  name="operator" value='255,255,255' autocomplete="off"></input></label>
+                                                            <label class="btn btn-success btn-lg"><input type="radio" name="operator" value='0,255,0' autocomplete="off"></input></label>
+                                                            <label class="btn btn-primary btn-lg"><input type="radio" " name="operator" value='0,0,255' autocomplete="off"></input></label>
+                                                            <label class="btn btn-warning btn-lg"><input type="radio"  name="operator" value='255,255,0' autocomplete="off"></input></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class = "col-md-7 col-sm-8" >
+                                                    <div class="col-md-12 col-sm-4" style=" white-space:nowrap; font-size:2.0em" align="center" id="header">
+                           
+                                                    </div>
+                                                     <div class="col-md-12 col-sm-4" style=" white-space:nowrap; font-size:1.0em; margin-right: 10px;" align="center" id="NotHeader">
+                           
+                                                    </div>
+                                                
+                                                    <div class="col-md-12 col-sm-4" id="voice_mode_header" align="center">
+                                                    
+                                                    </div>
+                                                    
+                                                    <div class="col-md-12 col-sm-12" id="voice_mode_" align="center"></div>
+                                                     <div class="col-md-12 col-sm-4" id="smart_mode_header" align="center">
+                                                    
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12" id="smart_mode_" align="center"></div>
+
+                                                
+                                                </div>
+                                            </div>
+                                            <div class = "Input_Form" id = "BW" hidden>
+                                                
+                                            </div>
+                                           <!--  <button class = "btn btn-default btn-sm"  data-dismiss="modal">등록</button> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3" col>
+                                        Selected <span id="selected"></span><br>
+                                        <input style="margin: 5px;" type="checkbox" checked data-toggle="toggle" data-onstyle="info">
+                                        <button style="margin: 5px;" type="button" class="btn btn-default">Add Light</button>
+                                        <button style="margin-left: 5px;" type="button" class="btn btn-default">Delete Light</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="thingControlTab">
+                                <div class="row">
+                                    <div class="col-md-9 col-sm-9">
+                                        <div class="row panel panel-default thingView">
+                                          
+                                           <!-- <input class="thingimg" type="image" src="Assets/img/fan.png">
+                                            <input class="thingimg" type="image" src="Assets/img/tv.png">
+                                            <input class="thingimg" type="image" src="Assets/img/Thermostat.png">-->
+                                        
+                                        </div>
+                                        <div>
+                                            <span style="display : inline-block;width: 30%" >Channel </span><button style="width:20%" type="button" class="btn btn-default">Previous</button>
+                                            <button style="width:20%" type="button" class="btn btn-default">Next</button>
+                                        </div>
+                                        <div>
+                                            <span style="display : inline-block;width: 30%" >Volume </span><input type='range' value = "0" id="bright-temperature" max = "15000" min = "0" step = "1000" oninput="Bright(this.value);"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3" col>
+                                        Selected <span id="selected">fan</span>
+                                        <input style="margin: 5px;" type="checkbox" checked data-toggle="toggle" data-onstyle="info">
+                                        <!--<button style="margin: 5px;" data-dismiss="modal" type="button" onclick="ViewAddThing()" class="btn btn-default">Add Thing</button>-->
+                                        <button style="margin-left: 5px;" type="button" class="btn btn-default">Delete Thing</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="roomInfoTab">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3">
+                                        <p>Room Id</p>
+                                        <p>Room Name</p>
+                                        <p>Room Explain</p>
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 room_info">
+                                        <p id="roomid">1</p>
+                                        <p id="roomname">작은방1</p>
+                                        <p id="roomexp">작은방입니다</p>
+                                    </div>
+                                </div>
+                            </div>
+                      <!--       <div role="tabpanel" class="tab-pane" id="rulesTab">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2">Rule 1</div>
+                                    <div class="col-md-6 col-sm-6"><p class="room_info" id="roomid">If 6pm then turn on the TV</p></div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <button type="button" class="btn btn-xs btn-default" >Modify</button>
+                                        <button type="button" class="btn btn-xs btn-default" >Delete</button>
+                                        <input data-width="65px" data-size="mini" type="checkbox" data-on="Active" data-off="Deactive" checked="" data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2">Rule 2</div>
+                                    <div class="col-md-6 col-sm-6"><p class="room_info" id="roomid">If turn off all lights then turn on tableLight</p></div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <button type="button" class="btn btn-xs btn-default" >Modify</button>
+                                        <button type="button" class="btn btn-xs btn-default" >Delete</button>
+                                        <input data-width="65px" data-size="mini" type="checkbox" data-on="Active" data-off="Deactive" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2">Rule 3</div>
+                                    <div class="col-md-6 col-sm-6"><p class="room_info" id="roomid">If 11pm then turn off all lights</p></div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <button type="button" class="btn btn-xs btn-default" >Modify</button>
+                                        <button type="button" class="btn btn-xs btn-default" >Delete</button>
+                                        <input data-width="65px" data-size="mini" type="checkbox" data-on="Active" data-off="Deactive" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger">
+                                    </div>
+                                </div>
+                                
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="save_chages" onClick="saveLight();">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        
+    <div id = "add_case_form" hidden>
+        <div class = "panel-danger">
+            <div class="panel-heading">
+                Register Case
+            </div>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Case Name</label>
+                        <input class="form-control" id="case_name" name="case_name" type="text" placeholder="시나리오 이름을 입력 해주세요." />
+                    </div>
+                    <button type="submit" class="btn btn-danger" onclick="SubmitCaseInformation();return false;">Register Now </button>
+                    <button type="submit" class="btn btn-default" onclick="CloseDialog();return false;">Cancel </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id = "add_room_form" hidden>
+        <div class="panel-danger">
+            <div class="panel-heading">
+                Register Room
+            </div>
+            <div class="panel-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label>Room Name</label>
+                        <input class="form-control" id="room_name" name="room_name" type="text" placeholder="방 이름을 입력해 주세요" />
+
+                    </div>
+                    <div class="form-group">
+                        <label>Detail</label>
+                        <input class="form-control" id="room_exp" name="room_exp" type="text" placeholder="방에 대한 간략한 설명을 입력해 주세요"/>
+                    </div>
+                    <button type="submit" class="btn btn-danger" onclick="SubmitRoomInformation();return false;">Register Now </button>
+                    <button type="submit" class="btn btn-default" onclick="CloseDialog();return false;">Cancel </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- CONTENT-WRAPPER SECTION END-->
+    <section class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                   &copy; 2014 Yourdomain.com |
+                </div>
+
+            </div>
+        </div>
+    </section>
+      <!-- FOOTER SECTION END-->
+    <!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
+    <!-- CORE JQUERY  -->
+
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="Assets/js/bootstrap.js"></script>
+      <!-- CUSTOM SCRIPTS  -->
+    <script src="Assets/js/custom.js"></script>
+</body>
+</html>

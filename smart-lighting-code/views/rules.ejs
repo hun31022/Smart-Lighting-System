@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<%include header.ejs%>
+    <div class="content-wrapper">
+        <div class="container">
+            <div class="row pad-botm">
+                <div class="col-md-12">
+                    <h4 class="header-line">RULES</h4>
+                </div>
+            </div>  
+            <div class="row">
+                <div style="text-align:right"><button type="button" class="btn btn-default btn-circle" data-toggle="modal" data-target="#AddRule" >Add rules</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <!-- Modal -->
+                        <div class="modal fade" id="AddRule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Add Rules</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form class="addrule" name="addrule">
+                                        <table style="width : 80%">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width : 35%"><label>Name</label></td>
+                                                    <td>
+                                                        <input class="form-control" name="addruleName" placeholder="Enter text">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label>Description</label></td>
+                                                    <td>
+                                                        <input class="form-control" name="addruleDesc" placeholder="Enter text">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table></form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" onclick="saveRulenEdit();">Next</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                    <!-- /.modal -->
+                <br>
+                <div class="col-md-12">
+                    <!-- Advanced Tables -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             Rules table
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="ruletable">
+                                    <thead>
+                                    <tr>
+                                        <th>NO.</th>
+                                        <th>Rule Name</th>
+                                        <th>Rule Info</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%for(var i=0;i<rule_data.length;i++){%>
+                                            <tr class="odd gradeX">
+                                            <td><span class="ruleNo"><%= i %></span></td>
+                                            <td><span class="ruleName"><%= rule_data[i].rule_name %></span></td>
+                                            <td><span class="ruleInfo"><%= rule_data[i].rule_description %></span></td>
+                                            <td>
+                                                <button type="button" onclick="ruledelete(<%=rule_data[i].rule_id%>);" class="btn btn-default btn-circle btn-sm">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                                <button type="button" onclick="location.href='/addRules?ruleid=<%=rule_data[i].rule_id%>'" class="btn btn-default btn-circle btn-sm">
+                                                    <i class="fa fa-cog"></i>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                        <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+            </br></br></br>
+		<!-- rules add, and buttons -->
+            	
+     <!-- CONTENT-WRAPPER SECTION END-->
+    <section class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                   &copy; 2014 Yourdomain.com |<a href="http://www.binarytheme.com/" target="_blank"  > Designed by : binarytheme.com</a> 
+                </div>
+
+            </div>
+        </div>
+    </section>
+      <!-- FOOTER SECTION END-->
+
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="Assets/js/bootstrap.js"></script>
+    <!-- DATATABLE SCRIPTS  -->
+    <script src="Assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="Assets/js/dataTables/dataTables.bootstrap.js"></script>
+      <!-- CUSTOM SCRIPTS  -->
+    <script src="Assets/js/custom.js"></script>
+</body>
+</html>

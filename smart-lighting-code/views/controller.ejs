@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<style>
+      .thumbnail-wrapper{
+        width:80%;
+        height:700px;
+        overflow:hidden;
+      }
+      #myImg{
+        z-index:1;
+        position:relative;
+        width:645px;
+        padding: 5px;
+        height: 215px;
+        height:auto;
+        border-color: black;
+        border:1px solid #5D5D5D;
+        border-radius: 4px;
+      }
+      .bbox{
+        z-index:5;
+        position:absolute;
+        border-style:solid;
+        border-color:transparent;
+        border-width:1px;
+
+        /* background-color:powderblue; */
+      }
+      .bbox:hover{
+        border-color : red;
+      }
+
+
+      
+    </style>
+    <script>CAMURL="http://202.31.200.140:8000/";
+    //CAMURL="http://202.31.200.139/";</script>
+<%include header.ejs%>
+    <div>
+      <!-- <select id="controllerRooms" onchange="roomChange(this);">
+      
+      </select> -->
+      <div class="row">
+                <!-- Modal -->
+                <div class="modal fade" id="AddRule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Add Rules</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="addrule" name="addrule">
+                                <table style="width : 80%">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width : 35%"><label>Name</label></td>
+                                            <td>
+                                                <input class="form-control" name="addruleName" placeholder="Enter text">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><label>Description</label></td>
+                                            <td>
+                                                <input class="form-control" name="addruleDesc" placeholder="Enter text">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table></form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" onclick="saveRulenEdit2();">Next</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+            <!-- /.modal -->
+    	<div style="width: 100%; position:relative;">
+	        <div class="thumbnail-wrapper">
+	          <!-- <div class="bbox" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover"></div> -->
+	          <!-- <div id="bbox_csdss" class="bbox" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover" style="height: 150px; width: 150px; left: 350px; top: 500px;"></div> -->
+	          <img id="myImg" src="http://202.31.200.140:8000/API/getImg"></img>
+	        </div>
+	    </div>
+	    <button onclick="stop();">clearInterval</button>
+	   </div>
+	   <div id="ruletest"></div>
+
+            	
+     <!-- CONTENT-WRAPPER SECTION END-->
+    <div><section class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                   &copy; 2014 Yourdomain.com |<a href="http://www.binarytheme.com/" target="_blank"  > Designed by : binarytheme.com</a> 
+                </div>
+
+            </div>
+        </div>
+    </section></div>
+      <!-- FOOTER SECTION END-->
+    <script>
+  var thingAry=[];
+  var flag;
+  function displayAt(x,y,w,h,id,i){
+    let obj = document.createElement('div');
+    obj.id="bbox_"+i+"_"+id;
+    obj.className="bbox";
+    obj.style.height = h+"px";
+    obj.style.width = w+"px";
+    obj.style.left=x+"px";
+    obj.style.top=y+"px";
+
+    document.getElementById('myImg').insertAdjacentElement("afterend",obj );
+
+    $("#bbox_"+i+"_"+id).attr("data-toggle","popover");
+    $("#bbox_"+i+"_"+id).attr("data-html","true"); //참고 https://codepen.io/diqidoq/pen/RRojxQ  
+    //참고... https://stackoverflow.com/questions/13413057/how-to-insert-close-button-in-popover-for-bootstrap
+    
+    var title=id+" &ensp; <button class='close' type='button' onclick='$(this).closest(\"div.popover\").popover(\"hide\");'>&times;</button>";
+    $("#bbox_"+i+"_"+id).attr("title",title);
+    $("#bbox_"+i+"_"+id).attr("onclick","divClick('"+id+"',"+i+");");
+    //$("#bbox_"+i+"_"+id).attr("data-content","This is "+id);
+    $('[data-toggle="popover"]').popover();
+
+  }
+
+  function addRuleAtController(){
+      location.href=BASE_URL+"addRules?ruleid="+data.rule_id+"&deviceid="+thingAry[i].t_id;
+      alert("추가해!");
+  }
+
+  function viewRules(device_id){
+      location.href=BASE_URL+"rules?device_id="+device_id;
+  }
+
+  function divClick(id,index){
+  	$('#ruletest').empty();
+  	flag=thingAry.length;
+    for(var i=0;i<thingAry.length;i++){
+      if(thingAry[i].t_type==id){
+      	var title=thingAry[i].t_name+" &ensp; <button class='close' type='button' onclick='$(this).closest(\"div.popover\").popover(\"hide\");'>&times;</button>";
+    	  $("#bbox_"+index+"_"+id).attr("data-original-title",title);
+        var content=thingAry[i].s_property_1+" : <span>"+thingAry[i].property_1+"</span><br>This is "+id;
+        content=content+"<br><a class='btn btn-default' data-toggle='modal' data-target='#AddRule'>추가</a>&ensp;<a class='btn btn-default' onclick='viewRules("+thingAry[i].t_id+");'>조회</button>"
+
+        $("#bbox_"+index+"_"+id).attr("data-content",content);
+        $('[data-toggle="popover"]').popover();
+        flag=i;
+
+
+        for(var index=0;index<thingAry[i].rule.length;index++){
+        	$('#ruletest').append("<span>"+thingAry[i].rule[index].rule_name+"</span><p>"+thingAry[i].rule[index].rule_details+"</p><br>")
+        };
+      }
+    }
+
+
+    if(flag==thingAry.length){
+    	var content="plz register this thing";
+    	$("#bbox_"+index+"_"+id).attr("data-content",content);
+    }
+  }
+
+  function saveRulenEdit2(){ //제목 그대로..
+    var Data=$(".modal-body > .addrule").serialize();
+
+    $.ajax({
+        type: "post",
+        url : BASE_URL+API_URL+"addrule",
+        data : Data,
+        timeout : 2000,
+        success: function(data){
+            location.href=BASE_URL+"addRules?ruleid="+data.rule_id+"&deviceid="+thingAry[flag].t_id;
+        },
+        error: function(err){
+            toastr.warning(err);
+        }
+    });
+  }
+
+  function getBBox(){
+    $.ajax({
+        type:"GET",
+        url: CAMURL+"API/getbox",
+        success:function(data){
+          //console.log(data);
+          $('.bbox').remove();
+          for(var i=0;i<data.length;i++){
+            displayAt(data[i].x,data[i].y,data[i].w,data[i].h,data[i].id,i);
+          }
+          //roomChange('15');
+        },
+        error:function(err){
+          //alert("something error in yolo server");
+          console.log(err);
+        }
+    })
+  }
+  var promise=new Promise(function(getBBox,reject){
+    getBBox();
+    console.log('확인');
+  });
+
+  promise.then(function(){
+    getBBox();
+    roomChange('15');
+  });
+
+
+  playImg=setInterval(function (){
+    var img=document.getElementById('myImg');
+    img.src=CAMURL+'API/getImg?time='+new Date();
+    getBBox();
+  },2000);
+
+  function ruleUpload(temp,i){
+  	
+     	$.ajax({
+	     	type:"GET",
+	     	url:BASE_URL+"API/rulebythingid/t"+temp.t_id,
+	     	success:function(data){
+	     		ttemp={};
+	     		ttemp.rule=data;
+
+	     		thingAry[i]={};
+	     		thingAry[i]=$.extend({},temp,ttemp);
+	     	},
+	     	error:function(err){
+	     		console.log(err);
+	     	}
+	     })
+     
+  }
+
+  function roomChange(value){
+     $.ajax({
+        type:"GET",
+        url: BASE_URL+"API/thingsbyroom/"+value,
+        success:function(data){
+          //console.log(data);
+          temp=data;
+          for(var i=0;i<data.length;i++){
+          	thingAry[i]={};
+          	ruleUpload(data[i],i);
+          }
+        },
+        error:function(err){
+          //alert("something error in yolo server");
+          console.log(err);
+        }
+    });
+
+    
+     
+  }
+
+  function stop(){
+    clearInterval(playImg);
+      console.log("ㅎㅎ");
+  }
+
+</script>
+    <!-- BOOTSTRAP SCRIPTS  -->
+    <script src="Assets/js/bootstrap.js"></script>
+    <!-- DATATABLE SCRIPTS  -->
+    <script src="Assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="Assets/js/dataTables/dataTables.bootstrap.js"></script>
+      <!-- CUSTOM SCRIPTS  -->
+    <script src="Assets/js/custom.js"></script>
+</body>
+</html>
