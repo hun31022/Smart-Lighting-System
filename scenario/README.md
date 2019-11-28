@@ -43,12 +43,30 @@
           ![Registered Room Information2](https://user-images.githubusercontent.com/58102072/69793177-47fe2680-120b-11ea-8c01-0f2a8f06fcea.PNG)
         
         
+2. ### Web 서버를 통한 기본 제어 확인
+    - 웹 관리 서비스를 통해 등 색깔 제어
+    
+      *<거실 큰 등 빨간 색 제어 및 결과 확인>*
+      ![result confirm](https://user-images.githubusercontent.com/58102072/69793510-eee2c280-120b-11ea-9c40-0103f1441b96.PNG)
+    
+    - 웹 관리 서비스를 통해 등 동작 모드 변경 가능
+      - 등 동작 모드는 음성제어 모드(Voice Mode) 및 스마트 모드(센서모드, AI모드)가 있으며 등 제어 화면에서 조작 가능
+      - 음성제어 모드 및 스마트 모드 해제 수행
+      
+        *<거실 큰 등 음성제어 모드 및 스마트 모드 해제 화면>*
+        ![mode](https://user-images.githubusercontent.com/58102072/69793623-2ea9aa00-120c-11ea-9e04-121d5b74a630.PNG)
+    
+3. ### 세션/연결 관리 확인
+    - 세션/연결 관리 확인
+      - 세션 일시 해제
+        - 네트워크 문제 등으로 등과 메인 컨트롤러 간 핸즈쉐이킹에 문제가 생기면 웹소켓 연결이 종료됨
+        - 웹소켓 연결이 종료되면 해당 등 DB의 device_state가 off로 변경되며 웹 관리화면에서 등 색이 흰색으로 변경됨
         
+          *<세션 연결이 일시 해제된 상태 화면>*
+          ![session](https://user-images.githubusercontent.com/58102072/69793844-8ba56000-120c-11ea-9e40-ac1523c84d52.PNG)
+          
+          
         
-        
-        
-2. Web 서버를 통한 기본 제어 확인
-3. 세션/연결 관리 확인
 
 - ## 외부 사물 등록 및 관리
 1. 차량 센서 사물 등록
