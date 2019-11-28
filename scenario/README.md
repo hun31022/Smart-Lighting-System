@@ -117,6 +117,21 @@
 
 - ## IoE 서비스 관리 및 처리
 1. IoE 서비스 1: 차량 센서 기반 특정 등 켜기
+    - IoE 서비스 룰 생성 – 룰 이름 및 설명 넣기<br/><br/>
+      *<차량센서 기반 IoE 서비스 생성 1: 룰 추가>*
+      ![car sensor rules1](https://user-images.githubusercontent.com/58102072/69796330-2bfd8380-1211-11ea-934c-9a2615aec103.PNG)
+      
+    - 룰 조건 추가 – 차량 센서 검출 값이 ON 이면<br/><br/>
+      *<차량센서 기반 IoE 서비스 생성 2: 조건 추가>*
+      ![car sensor rules2](https://user-images.githubusercontent.com/58102072/69796412-5a7b5e80-1211-11ea-9af6-5f1f7e90aee6.PNG)
+      
+    - 룰 액션 추가 – 거실 큰 등을 적색으로 켬<br/><br/>
+      *<차량센서 기반 IoE 서비스 생성 3: 액션 추가>*<br/>
+      ![car sensor rules3](https://user-images.githubusercontent.com/58102072/69796571-9adadc80-1211-11ea-8ae3-a8d8be8c721c.PNG)
+    
+    - IoE 서비스 룰 완성
+      
+      
 2. IoE 서비스 2: 당일 날씨(비) 예보 시 아침 7시에 무드 등 노란 색 켜기
 3. IoE 서비스 3: 내일 미세먼지 나쁨 예보 시 저녁 10시에 무드 등 파란 색 켜기
 
