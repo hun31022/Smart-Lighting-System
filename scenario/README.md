@@ -65,12 +65,22 @@
           *<세션 연결이 일시 해제된 상태 화면>*
           ![session](https://user-images.githubusercontent.com/58102072/69793844-8ba56000-120c-11ea-9e40-ac1523c84d52.PNG)
           
+    - 세션 재개
+      - 해당 등의 Light Controller는 Main Controller와 웹 소켓 연결이 끊어진 것을 확인하면 Main Controller와 웹 소켓 재연결을 수행함(화면 캡처 생략)
           
-        
 
 - ## 외부 사물 등록 및 관리
-1. 차량 센서 사물 등록
-2. 차량 센서 IoE 서비스 객체 확인
+1. ### 차량 센서 사물 등록
+    - 차량 센서 연결
+      - 차량 센서를 설치하면 차량 센서는 Main Controller에 접속하여 등록 과정 수행
+      - 차량 센서 정보가 DB에 저장되면 웹 관리 페이지(대시보드)에서 미등록된 사물(Unregistered Thing)로 표시됨
+      
+        *<미등록된 외부 사물 표시 화면>*
+        ![Unregistered 3rd](https://user-images.githubusercontent.com/58102072/69794103-079fa800-120d-11ea-83d0-bdaf8f8c286f.PNG)
+        <br/>
+        (“Unregistered Thing”을 선택하면 사물 등록 화면이 나오면 사물의 종류(자동차)와 이름(차량센서) 선택)
+        
+2. ### 차량 센서 IoE 서비스 객체 확인
 
 - ## 외부 서비스 관리
 1. 날씨 정보 서비스 IoE 서비스 객체 확인
