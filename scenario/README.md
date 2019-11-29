@@ -126,12 +126,59 @@
       ![car sensor rules2](https://user-images.githubusercontent.com/58102072/69796412-5a7b5e80-1211-11ea-9af6-5f1f7e90aee6.PNG)
       
     - 룰 액션 추가 – 거실 큰 등을 적색으로 켬<br/><br/>
-      *<차량센서 기반 IoE 서비스 생성 3: 액션 추가>*<br/>
+      *<차량센서 기반 IoE 서비스 생성 3: 액션 추가>*
       ![car sensor rules3](https://user-images.githubusercontent.com/58102072/69796571-9adadc80-1211-11ea-8ae3-a8d8be8c721c.PNG)
     
-    - IoE 서비스 룰 완성
-      
+    - IoE 서비스 룰 완성<br/><br/>
+      *<차량센서 기반 IoE 서비스 생성 4: 룰 완성>*
+      ![car sensor to IoE service rule2](https://user-images.githubusercontent.com/58102072/69857238-d689ab00-12d2-11ea-9c01-2185fa34969f.PNG)
+
       
 2. IoE 서비스 2: 당일 날씨(비) 예보 시 아침 7시에 무드 등 노란 색 켜기
+    - IoE 서비스 룰 생성 – 룰 이름 및 설명 넣기<br/><br/>
+      *<날씨 정보 기반 IoE 서비스 생성 1: 룰 추가>*
+      ![Weather IoE service rules1](https://user-images.githubusercontent.com/58102072/69857502-72b3b200-12d3-11ea-94df-179f408b598e.PNG)
+      
+    - 룰 조건 추가(Constraint) – 오늘 날씨 값이 ‘비’이면<br/><br/>
+      *<날씨 정보 기반 IoE 서비스 생성 2: 조건 추가1>*
+      ![Weather IoE service rules2](https://user-images.githubusercontent.com/58102072/69857658-bad2d480-12d3-11ea-99d7-5437c8ebf2c8.PNG)
+      
+    - 룰 조건 추가(Clock) – 시간 오전 7시, 매일 반복<br/><br/>
+      *<날씨 정보 기반 IoE 서비스 생성 2: 조건 추가2>*
+      ![Weather IoE service rules3](https://user-images.githubusercontent.com/58102072/69857790-fc637f80-12d3-11ea-92bb-7c64e1f6995e.PNG)
+      
+    - 룰 액션 추가 – 거실 무드 등을 노란색으로 켬<br/><br/>
+      *<날씨 정보 기반 IoE 서비스 생성 3: 액션 추가>*<br/>
+      ![Weather IoE service rules4](https://user-images.githubusercontent.com/58102072/69857936-4d737380-12d4-11ea-8611-ccc290dffbb2.PNG)
+      
+    - IoE 서비스 룰 완성<br/><br/>
+      *<날씨 정보 기반 IoE 서비스 생성 4: 룰 완성>*
+      ![Weather IoE service rules5](https://user-images.githubusercontent.com/58102072/69858024-7a278b00-12d4-11ea-8dd8-0547670d87b8.PNG)
+      
+    
 3. IoE 서비스 3: 내일 미세먼지 나쁨 예보 시 저녁 10시에 무드 등 파란 색 켜기
+    - IoE 서비스 룰 생성 – 룰 이름 및 설명 넣기<br/><br/>
+      *<미세먼지 정보 기반 IoE 서비스 생성 1: 룰 추가>*
+      ![dust IoE service rules1](https://user-images.githubusercontent.com/58102072/69858188-d4285080-12d4-11ea-9170-75cce14a4593.PNG)
+      
+    - 룰 조건 추가(Constraint) – 내일 미세먼지 값이 ‘나쁨’이면<br/><br/>
+      *<미세먼지 정보 기반 IoE 서비스 생성 2: 조건 추가1>*
+      ![dust IoE service rules2](https://user-images.githubusercontent.com/58102072/69858313-16519200-12d5-11ea-9e7c-f89e5f15934c.PNG)
+      
+    - 룰 조건 추가(Clock) – 시간 저녁 10시, 반복 없음<br/><br/>
+      *<미세먼지 정보 기반 IoE 서비스 생성 2: 조건 추가2>*
+      ![dust IoE service rules3](https://user-images.githubusercontent.com/58102072/69858416-4bf67b00-12d5-11ea-85c9-8775e7238da7.PNG)
+      
+    - 룰 액션 추가 – 거실 무드 등을 파란색으로 켬<br/><br/>
+      *<미세먼지 정보 기반 IoE 서비스 생성 3: 액션 추가>*<br/>
+      ![dust IoE service rules4](https://user-images.githubusercontent.com/58102072/69858497-7b0cec80-12d5-11ea-98eb-949773609584.PNG)
+      
+    - IoE 서비스 룰 완성<br/><br/>
+      *<미세먼지 정보 기반 IoE 서비스 생성 4: 룰 완성>*
+      ![dust IoE service rules5](https://user-images.githubusercontent.com/58102072/69858567-a5f74080-12d5-11ea-9174-e4a7a5721712.PNG)
+      
+    - 생성된 IoE 서비스 룰 확인<br/><br/>
+      *<생성된 IoE 서비스 룰 확인(룰 테이블)>*
+      ![dust IoE service rules6](https://user-images.githubusercontent.com/58102072/69858648-c626ff80-12d5-11ea-9cd8-ee662292dac7.PNG)
+      
 
