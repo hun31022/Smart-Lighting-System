@@ -7,7 +7,7 @@
 - 개발 기간: 2017.03 ~ 2018.12
 - OS: Liunx ubuntu 16.04
 - Language: Node.js, javascript
-- Tag: ```Mysql```, ```HTTP```, ```Websocket```, ```Jquery```, ```Rules Engine Nools```, ```JSON```, ```API```
+- Tag: ```Mysql```, ```HTTP```, ```Websocket```, ```Jquery```, ```Rules Engine Nools```, ```JSON```, ```API```, ```View.js```
 - 역할
 
      <img src="https://user-images.githubusercontent.com/58102072/69605094-8f957e80-1062-11ea-8ece-cf8b93aaa017.PNG" width="60%">
