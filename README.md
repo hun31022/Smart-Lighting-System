@@ -10,7 +10,7 @@
 - Tag: ```Mysql```, ```HTTP```, ```Websocket```, ```Jquery```, ```Rules Engine Nools```, ```JSON```, ```API```
 - 역할
 
-     <img src="https://user-images.githubusercontent.com/58102072/69605094-8f957e80-1062-11ea-8ece-cf8b93aaa017.PNG" width="60%">
+     <img src="https://user-images.githubusercontent.com/58102072/69897691-d0f39a00-1392-11ea-9d03-c3f42e7d709d.PNG" width="60%">
 
 # 개발 시스템 전체 구조
    ![structure](https://user-images.githubusercontent.com/58102072/69605168-c4093a80-1062-11ea-847d-89f1897204f9.PNG)
