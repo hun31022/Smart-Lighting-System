@@ -4,7 +4,7 @@
 이 프로젝트는 IoE 시스템과 연동하여 지능형 조명 서비스를 제공하고 통신 등의 복합 기능을 가지는 조명기구 및 조명 IoT 시스템이다.
 
 # 개발 기간, 환경, 역할
-- 개발 기간: 2017.03 ~ 2018.12
+- 개발 기간: 2017.09 ~ 2018.12
 - OS: Liunx ubuntu 16.04
 - Language: Node.js, javascript
 - Tag: ```Mysql```, ```HTTP```, ```Websocket```, ```Jquery```, ```Rules Engine Nools```, ```JSON```, ```API```
